@@ -1,13 +1,9 @@
 package m08.uf3.drops.Screens;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -20,7 +16,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import m08.uf3.drops.Drops;
 import m08.uf3.drops.Objects.Bucket;
-import m08.uf3.drops.Objects.Drop;
 import m08.uf3.drops.Utils.Settings;
 import m08.uf3.drops.helper.AssetManager;
 
@@ -31,7 +26,6 @@ public class GameScreen implements Screen {
     Batch batch;
     Bucket bucket;
     final Drops game;
-    Drop drop;
     ShapeRenderer shapeRenderer;
     Label vidas;
 
@@ -82,18 +76,8 @@ public class GameScreen implements Screen {
             game.setScreen(new MainMenuScreen(game));
         }
 
-        if(TimeUtils.nanoTime() - lastDropTime > 2000000000){
-            drop = new Drop(MathUtils.random(0, 800 - 64), 480, 64,64);
-            stage.addActor(drop);
-            lastDropTime = TimeUtils.nanoTime();
-        }
-
         try {
-            if (drop.getCollisionRectDrop().overlaps(bucket.getCollisionRectBucket())) {
-                AssetManager.dropSound.play();
-                drop.remove();
-                drop.getCollisionRectDrop().setX(Settings.GAME_WIDTH + 200);
-            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
