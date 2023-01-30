@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -29,6 +32,8 @@ public class GameScreen implements Screen {
     ShapeRenderer shapeRenderer;
     Label vidas;
 
+    private OrthogonalTiledMapRenderer tmr;
+    private TiledMap map;
     public GameScreen(Batch prevBatch, Viewport prevViewport, Drops game) {
         this.game = game;
         Settings.LIVES = 3;
@@ -59,14 +64,17 @@ public class GameScreen implements Screen {
 
         vidas = new Label("Vidas: "+ Settings.LIVES, new Label.LabelStyle(bitmapfont, Color.WHITE));
         vidas.setPosition((Settings.GAME_WIDTH - (vidas.getWidth() * Settings.TITLE_RESCALE_SIZE)) / 2, (Settings.GAME_HEIGHT - vidas.getHeight()) / 2);
+
+        map = new TmxMapLoader().load("Maps/map.tmx");
+        tmr = new OrthogonalTiledMapRenderer(map);
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         batch.begin();
-        batch.draw(AssetManager.fondo, 0, 0);
         batch.end();
+        tmr.render();
         stage.act(delta);
         stage.draw();
         vidas.setText("Vidas: "+ Settings.LIVES);
@@ -109,6 +117,8 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         AssetManager.dispose();
+        tmr.dispose();
+        map.dispose();
     }
 
 }
