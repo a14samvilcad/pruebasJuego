@@ -39,8 +39,7 @@ public class GameScreen implements Screen {
         this.game = game;
         Settings.LIVES = 3;
         crearLabels();
-        // Iniciem la música
-        AssetManager.rainMusic.play();
+
 
         // Creem el ShapeRenderer
         shapeRenderer = new ShapeRenderer();
@@ -71,6 +70,9 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
+        batch.begin();
+        batch.draw(AssetManager.fondo, 0, 0);
+        batch.end();
         stage.act(delta);
         stage.draw();
         vidas.setText("Vidas: "+ Settings.LIVES);
@@ -103,8 +105,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        // start the playback of the background music
-        // when the screen is shown
+        AssetManager.load();
+
 
     }
 
@@ -122,6 +124,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        AssetManager.dispose();
     }
 
 }

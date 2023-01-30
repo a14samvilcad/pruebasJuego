@@ -44,7 +44,7 @@ public class MainMenuScreen implements Screen {
 
     private void crearLabels(){
         BitmapFont bitmapfont = new BitmapFont();
-        title = new Label("DROPS", new Label.LabelStyle(bitmapfont, Color.WHITE));
+        title = new Label("Zombie Game", new Label.LabelStyle(bitmapfont, Color.WHITE));
         title.setFontScale(Settings.TITLE_RESCALE_SIZE);
         title.setPosition((Settings.GAME_WIDTH - (title.getWidth() * Settings.TITLE_RESCALE_SIZE)) / 2, ((Settings.GAME_HEIGHT - title.getHeight()) / 2) + 50);
         message = new Label("Pulsa en la pantalla para empezar", new Label.LabelStyle(bitmapfont, Color.WHITE));
