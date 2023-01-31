@@ -33,6 +33,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(Drops game) {
         this.game = game;
+
         lives = 3;
 
         // Creem la càmera de les dimensions del joc
@@ -44,7 +45,7 @@ public class MainMenuScreen implements Screen {
 
         // Creem l'stage i assginem el viewport
         stage = new Stage(viewport);
-
+        gameScreen = new GameScreen(stage.getBatch(), stage.getViewport(), game);
 
         crearLabels();
         //stage.addActor(title);
@@ -81,10 +82,10 @@ public class MainMenuScreen implements Screen {
 
         stage.draw();
         stage.act(delta);
-        if (button.addListener(new ChangeListener() {
+        if (button.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(stage.getBatch(), stage.getViewport(), game));
+                game.setScreen(gameScreen);
                 dispose();
             }
         }));
