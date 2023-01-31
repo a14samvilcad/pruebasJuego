@@ -23,8 +23,6 @@ import m08.uf3.drops.Utils.Settings;
 import m08.uf3.drops.helper.AssetManager;
 
 public class GameScreen implements Screen {
-    Array<Rectangle> raindrops;
-    long lastDropTime;
     Stage stage;
     Batch batch;
     Bucket bucket;

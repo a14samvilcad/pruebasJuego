@@ -8,7 +8,6 @@ public class Settings {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 480;
     public static float WALLET_VELOCITY = 200;
-    public static float DROP_VELOCITY = 250;
     public static float TITLE_RESCALE_SIZE = 3;
     public static int LIVES = 3;
 }
