@@ -1,5 +1,6 @@
 package m08.uf3.drops.Screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -99,6 +100,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(.5f, .7f, .9f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        cameraPosition();
         camera.update();
         tmr.setView(camera);
         tmr.render();
@@ -116,6 +118,25 @@ public class GameScreen implements Screen {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void cameraPosition() {
+        if (Gdx.app.getType() == Application.ApplicationType.Android){
+            if(bucket.getCollisionRectBucket().x < (mapWidthInPixels - (Gdx.graphics.getWidth() / 2) / 2) && bucket.getCollisionRectBucket().x > (Gdx.graphics.getWidth() / 2) / 2){
+                camera.position.x = bucket.getCollisionRectBucket().x;
+            }
+            if(bucket.getCollisionRectBucket().y < (mapHeightInPixels - (Gdx.graphics.getHeight() / 2) / 2) && bucket.getCollisionRectBucket().y > (Gdx.graphics.getHeight() / 2) / 2) {
+                camera.position.y = bucket.getCollisionRectBucket().y;
+            }
+        } else {
+            if(bucket.getCollisionRectBucket().x < (mapWidthInPixels - (Gdx.graphics.getWidth() / 2)) && bucket.getCollisionRectBucket().x > (Gdx.graphics.getWidth() / 2)){
+                camera.position.x = bucket.getCollisionRectBucket().x;
+            }
+            if(bucket.getCollisionRectBucket().y < (mapHeightInPixels - (Gdx.graphics.getHeight() / 2)) && bucket.getCollisionRectBucket().y > (Gdx.graphics.getHeight() / 2)) {
+                camera.position.y = bucket.getCollisionRectBucket().y;
+            }
+        }
+
     }
 
     @Override
