@@ -59,15 +59,7 @@ public class Bucket extends Actor {
             this.position.y -= Settings.WALLET_VELOCITY * Gdx.graphics.getDeltaTime();
         }
 
-        //Que no se salga de la pantalla
-        if (this.position.x < 0)
-            this.position.x = 0;
-        if (this.position.x > Settings.GAME_WIDTH - Settings.WALLET_WIDTH)
-            this.position.x = Settings.GAME_WIDTH - Settings.WALLET_WIDTH;
-        if (this.position.y > Settings.GAME_HEIGHT - Settings.WALLET_HEIGHT)
-            this.position.y = Settings.GAME_HEIGHT - Settings.WALLET_HEIGHT;
-        if (this.position.y < 0)
-            this.position.y = 0;
+
 
         collisionRect.x = this.position.x;
         collisionRect.y = this.position.y;
@@ -94,7 +86,7 @@ public class Bucket extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(AssetManager.bucketImage, this.position.x, this.position.y, width, height);
+        batch.draw(AssetManager.soldierImage, this.position.x, this.position.y, width, height);
     }
 
     // Getters dels atributs principals

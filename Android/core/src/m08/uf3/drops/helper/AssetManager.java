@@ -13,21 +13,27 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public class AssetManager {
-    public static Texture bucketImage;
+
+    //Map
+    public static TiledMap map;
+    public static TmxMapLoader mapLoader;
+
+    public static Texture soldierImage;
     public static Sound dropSound;
 
     // Font
     public static BitmapFont font;
 
-
-
-
-
-
     //Load textures
     public static void load() {
+
+        //Load Map
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load("Maps/map.tmx");
+
+
         // load the images for the droplet and the bucket, 64x64 pixels each
-        bucketImage = new Texture(Gdx.files.internal("soldier.png"));
+        soldierImage = new Texture(Gdx.files.internal("soldier.png"));
 
 
 
@@ -39,7 +45,7 @@ public class AssetManager {
 
 
     public static void dispose() {
-        bucketImage.dispose();
+        soldierImage.dispose();
         dropSound.dispose();
 
     }

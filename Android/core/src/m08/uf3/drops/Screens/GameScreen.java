@@ -1,10 +1,14 @@
 package m08.uf3.drops.Screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -32,9 +36,32 @@ public class GameScreen implements Screen {
     ShapeRenderer shapeRenderer;
     Label vidas;
 
+    //Map
+    private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tmr;
     private TiledMap map;
+
+    private int tileWidth, tileHeight,
+            mapWidthInTiles, mapHeightInTiles,
+            mapWidthInPixels, mapHeightInPixels;
+
     public GameScreen(Batch prevBatch, Viewport prevViewport, Drops game) {
+
+        map = AssetManager.map;
+
+        MapProperties properties = map.getProperties();
+        tileWidth         = properties.get("tilewidth", Integer.class);
+        tileHeight        = properties.get("tileheight", Integer.class);
+        mapWidthInTiles   = properties.get("width", Integer.class);
+        mapHeightInTiles  = properties.get("height", Integer.class);
+        mapWidthInPixels  = mapWidthInTiles  * tileWidth;
+        mapHeightInPixels = mapHeightInTiles * tileHeight;
+
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        prevViewport.setCamera(camera);
+
+        tmr = new OrthogonalTiledMapRenderer(map);
+
         this.game = game;
         Settings.LIVES = 3;
         crearLabels();
@@ -65,17 +92,16 @@ public class GameScreen implements Screen {
         vidas = new Label("Vidas: "+ Settings.LIVES, new Label.LabelStyle(bitmapfont, Color.WHITE));
         vidas.setPosition((Settings.GAME_WIDTH - (vidas.getWidth() * Settings.TITLE_RESCALE_SIZE)) / 2, (Settings.GAME_HEIGHT - vidas.getHeight()) / 2);
 
-        map = new TmxMapLoader().load("Maps/map.tmx");
-        tmr = new OrthogonalTiledMapRenderer(map);
+
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-        batch.begin();
-        batch.end();
+        Gdx.gl.glClearColor(.5f, .7f, .9f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.update();
+        tmr.setView(camera);
         tmr.render();
-        stage.act(delta);
         stage.draw();
         vidas.setText("Vidas: "+ Settings.LIVES);
 
