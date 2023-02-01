@@ -103,6 +103,7 @@ public class GameScreen implements Screen {
         tmr.setView(camera);
         tmr.render();
         stage.draw();
+        stage.act(delta);
         vidas.setText("Vidas: "+ Settings.LIVES);
 
         if(Settings.LIVES < 0){

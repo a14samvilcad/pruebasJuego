@@ -8,4 +8,6 @@ public class Settings {
     public static float WALLET_VELOCITY = 200;
     public static float TITLE_RESCALE_SIZE = 3;
     public static int LIVES = 3;
+    public static final float PLAYER_VELOCITY = 250;
+
 }

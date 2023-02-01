@@ -44,27 +44,38 @@ public class Bucket extends Actor {
 
     public void act(float delta){
         super.act(delta);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
+                this.position.x -= Settings.PLAYER_VELOCITY * Gdx.graphics.getDeltaTime();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
+                this.position.x += Settings.PLAYER_VELOCITY * Gdx.graphics.getDeltaTime();
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
-            this.position.x -= Settings.WALLET_VELOCITY * Gdx.graphics.getDeltaTime();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
-            this.position.x += Settings.WALLET_VELOCITY * Gdx.graphics.getDeltaTime();
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
+                this.position.y += Settings.PLAYER_VELOCITY * Gdx.graphics.getDeltaTime();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
+                this.position.y -= Settings.PLAYER_VELOCITY * Gdx.graphics.getDeltaTime();
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
-            this.position.y += Settings.WALLET_VELOCITY * Gdx.graphics.getDeltaTime();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
-            this.position.y -= Settings.WALLET_VELOCITY * Gdx.graphics.getDeltaTime();
-        }
+            //Colision personaje con los bordes del mapa
+            if (this.position.y <= 5){
+                this.position.y = 5;
+            }
+            if (this.position.x <= 5){
+                this.position.x = 5;
+            }
+            if (this.position.x >= 3840 - this.width - 5){
+                this.position.x = 3840 - this.width - 5;
+            }
+            if (this.position.y >= 2160 - this.height - 2){
+                this.position.y = 2160 - this.height- 2;
+            }
 
-
-
-        collisionRect.x = this.position.x;
-        collisionRect.y = this.position.y;
-        collisionRect.width = this.width;
-        collisionRect.height = this.height;
+            collisionRect.x = this.position.x;
+            collisionRect.y = this.position.y;
+            collisionRect.width = this.width;
+            collisionRect.height = this.height;
 
     }
 
